@@ -22,7 +22,7 @@ def get_lines(img):
     cv2.line(img,(x1,y1),(x2,y2),(255,255,255), 3)
     angle = math.degrees(math.atan2(y2 - y1, x2 - x1))
     angles.append(angle)
-  return lines,angles
+  return lines,angles,img
 
 def rotate_image(img):
   mask = get_blue(img)

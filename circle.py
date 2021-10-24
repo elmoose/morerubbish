@@ -11,7 +11,7 @@ def get_edges(img,a,b):
   
   # Find Canny edges
   edged = cv2.Canny(gray, a, b)
-  cv2.waitKey(0)
+  #cv2.waitKey(0)
   
   # Finding Contours
   # since findContours alters the image
@@ -32,13 +32,13 @@ def get_edges(img,a,b):
   #return edged
   return edges
 
-def get_circle(gray):
+def get_circle(gray,minr,maxr):
   #gray = cv2.cvtColor(gray, cv2.COLOR_BGR2GRAY)
   #gray = cv2.medianBlur(gray, 5)
   rows = gray.shape[0]
   circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, rows*2,
                                param1=200, param2=10,
-                               minRadius=600, maxRadius=1800) # adjust this
+                               minRadius=minr, maxRadius=maxr) # adjust this
   
     
     
@@ -51,14 +51,12 @@ def get_circle(gray):
       # circle outline
       radius = i[2]
       cv2.circle(gray, center, radius, (255, 0, 255), 3)
-    cv2.imshow(gray)
+    
   else:
     print("NOOooooOOoooOo")
     
     
-  
-  cv2.waitKey(0)
-  return circles
+  return circles,gray
 
 
 def get_extra(img1,img2):

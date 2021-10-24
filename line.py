@@ -3,10 +3,10 @@ import numpy as np
 import statistics
 import math
 
-def get_blue(img):
+def get_colour(img,lower=[100,45,0],upper=[200,255,255]):
   hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-  lower_range = np.array([100,45,0]) #198,25,74
-  upper_range = np.array([200,255,255])
+  lower_range = np.array(lower)
+  upper_range = np.array(upper)
   mask = cv2.inRange(hsv, lower_range, upper_range)
   return mask
 

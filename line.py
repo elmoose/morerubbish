@@ -10,8 +10,8 @@ def get_colour(img,lower=[100,45,0],upper=[200,255,255]):
   mask = cv2.inRange(hsv, lower_range, upper_range)
   return mask
 
-def get_lines(img):
-  lines = cv2.HoughLinesP(img, rho =1, theta= np.pi / 180, threshold = 100, lines=None,minLineLength = 300, maxLineGap =50)
+def get_lines(img,minlen=300,maxgap=50):
+  lines = cv2.HoughLinesP(img, rho =1, theta= np.pi / 180, threshold = 100, lines=None,minLineLength = minlen, maxLineGap = maxgap)
   #lines =sorted(lines, key=lambda k: (-k[2], -k[0]))
   angles = []
   '''
@@ -23,15 +23,5 @@ def get_lines(img):
     angle = math.degrees(math.atan2(y2 - y1, x2 - x1))
     angles.append(angle)
   return lines,angles,img
-
-def rotate_image(img):
-  mask = get_blue(img)
-  lines,angles=get_lines(mask)
-  median_angle = np.median(angles)
-  mode_angle = statistics.mode(angles)
-  print(median_angle)
-  print(mode_angle)
-  img_rotated= ndimage.rotate(img, median_angle-(-45))
-  return img_rotated
 
 
